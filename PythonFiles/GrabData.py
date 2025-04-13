@@ -1,21 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[4]:
 
 
 #!pip install python-dotenv requests
 
 
-# In[2]:
+# In[5]:
 
 
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 import requests
+from pathlib import Path
 
-load_dotenv('../dev.env')  # Simplified to just use the file name since it's in the same directory
+load_dotenv('../../dev.env')  # Simplified to just use the file name since it's in the same directory
 
 # Retrieve the API key from the environment
 api_key = os.getenv('RIOT_API_KEY')
@@ -30,7 +31,7 @@ session.headers.update({"X-Riot-Token": api_key})
 riotbaseUrl = "https://americas.api.riotgames.com/"
 
 
-# In[76]:
+# In[6]:
 
 
 def getPid(summonerId, tag):
@@ -49,7 +50,7 @@ def getPid(summonerId, tag):
         print(f"Request failed with status code {response.status_code}: {response.text}")
 
 
-# In[90]:
+# In[7]:
 
 
 def getMatches(puid):
@@ -68,7 +69,7 @@ def getMatches(puid):
         print(f"Request failed with status code {response.status_code}: {response.text}")
 
 
-# In[93]:
+# In[8]:
 
 
 def extractPlayerDataFromMatch(matchData, player_puuid):
@@ -123,7 +124,7 @@ def extractPlayerDataFromMatch(matchData, player_puuid):
     return result
 
 
-# In[52]:
+# In[9]:
 
 
 def getMatchDetails(matchId, puuid):
@@ -140,11 +141,19 @@ def getMatchDetails(matchId, puuid):
         print(f"Request failed with status code {response.status_code}: {response.text}")
 
 
-# In[83]:
+# In[14]:
 
 
 def getPlayerData():
-    with open('summonerNames.txt', 'r') as file:
+    # Define data directory path
+    data_dir = Path(__file__).parent.parent / 'Data'
+    file_path = data_dir / 'summonerNames.txt'
+
+    # Check if file exists
+    if not file_path.exists():
+        raise FileNotFoundError(f"Summoner names file not found at {file_path}")
+
+    with open(file_path, 'r') as file:
         # Read each line and create user objects
         summoners = []
         for line in file:
@@ -183,9 +192,9 @@ def getPlayerData():
     return summoner_data
 
 
-# In[ ]:
+# In[15]:
 
 
-#allPlayersData = getPlayerData()
+allPlayersData = getPlayerData()
 #print(allPlayersData)
 
