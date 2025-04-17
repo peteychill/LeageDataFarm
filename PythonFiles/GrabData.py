@@ -7,7 +7,7 @@
 #!pip install python-dotenv requests
 
 
-# In[31]:
+# In[2]:
 
 
 import os
@@ -76,7 +76,7 @@ def getMatches(puid):
         print(f"Request failed with status code {response.status_code}: {response.text}")
 
 
-# In[39]:
+# In[5]:
 
 
 def extractPlayerDataFromMatch(matchData, player_puuid):
@@ -163,7 +163,7 @@ def getMatchDetails(matchId, puuid):
         print(f"Request failed with status code {response.status_code}: {response.text}")
 
 
-# In[13]:
+# In[7]:
 
 
 def getPlayerData():
@@ -213,7 +213,7 @@ def getPlayerData():
     return summoner_data
 
 
-# In[36]:
+# In[8]:
 
 
 def create_match_dataset(players_data):
@@ -246,23 +246,31 @@ def create_match_dataset(players_data):
     return df
 
 
-# In[24]:
+# In[9]:
 
 
 def get_project_root():
     try:
-        # For Python file
-        if '__file__' in globals():
-            return Path(__file__).parent  # Removed one .parent
-        # For Jupyter notebook
-        else:
-            return Path().absolute()  # Removed .parent
+        current_path = Path().absolute()
+
+        # Traverse up until we find the LeagueDataFarm directory
+        while current_path.name != 'LeagueDataFarm' and current_path != current_path.parent:
+            current_path = current_path.parent
+
+        # If we're now inside LeagueDataFarm, return the path
+        if current_path.name == 'LeagueDataFarm':
+            return current_path
+
+        # If not found
+        print("Warning: LeagueDataFarm folder not found.")
+        return None
+
     except Exception as e:
-        print(f"Warning: Using current directory due to error: {e}")
-        return Path().absolute()
+        print(f"Error while locating LeagueDataFarm folder: {e}")
+        return None
 
 
-# In[40]:
+# In[10]:
 
 
 # Create the Data directory if it doesn't exist
@@ -307,7 +315,7 @@ def updateCsv():
         raise
 
 
-# In[41]:
+# In[ ]:
 
 
 #updateCsv()
