@@ -1,0 +1,47 @@
+# Data directory
+Data/*
+!Data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+*.pkl
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment files
+.env
+dev.env
+*.env
+model_statistics.json
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Models directory (optional - uncomment if you don't want to track models)
+# models/
+
+# Documentation is tracked
+# docs/ - This folder should be tracked 
